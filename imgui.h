@@ -292,11 +292,13 @@ typedef void    (*ImGuiMemFreeFunc)(void* ptr, void* user_data);                
 IM_MSVC_RUNTIME_CHECKS_OFF
 struct ImVec2
 {
-    float                                   x, y;
-    constexpr ImVec2()                      : x(0.0f), y(0.0f) { }
-    constexpr ImVec2(float _x, float _y)    : x(_x), y(_y) { }
-    float& operator[] (size_t idx)          { IM_ASSERT(idx == 0 || idx == 1); return ((float*)(void*)(char*)this)[idx]; } // We very rarely use this [] operator, so the assert overhead is fine.
-    float  operator[] (size_t idx) const    { IM_ASSERT(idx == 0 || idx == 1); return ((const float*)(const void*)(const char*)this)[idx]; }
+    float                                       x, y;
+    constexpr ImVec2()                          : x(0.0f), y(0.0f) { }
+    constexpr ImVec2(float _x, float _y)        : x(_x), y(_y) { }
+    float& operator[] (size_t idx)              { IM_ASSERT(idx == 0 || idx == 1); return ((float*)(void*)(char*)this)[idx]; } // We very rarely use this [] operator, so the assert overhead is fine.
+    float  operator[] (size_t idx) const        { IM_ASSERT(idx == 0 || idx == 1); return ((const float*)(const void*)(const char*)this)[idx]; }
+    constexpr ImVec2 operator+(ImVec2& b) const { return ImVec2(x + b.x, y + b.y); }
+    constexpr ImVec2 operator-(ImVec2& b) const { return ImVec2(x - b.x, y - b.y); }
 #ifdef IM_VEC2_CLASS_EXTRA
     IM_VEC2_CLASS_EXTRA     // Define additional constructors and implicit cast operators in imconfig.h to convert back and forth between your math types and ImVec2.
 #endif
